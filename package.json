@@ -1,7 +1,8 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
+    "prepublish": "cp -f README.MD ./dist/",
     "build": "ng build --project ngx-slick-carousel",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ngx-slick -d docs --hideGenerator",
@@ -57,10 +58,10 @@
     "zone.js": "^0.8.26"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "dependencies": {
-    "@types/slick-carousel": "^1.6.31",
-    "slick-carousel": "^1.6.0"
+    "@types/slick-carousel": "^1.6.32",
+    "slick-carousel": "^1.8.1"
   }
 }

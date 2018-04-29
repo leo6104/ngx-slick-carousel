@@ -48,9 +48,9 @@ export class AppModule { }
 - Include jquery and slick css/js in your application :
 ```
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
-<script src="https://unpkg.com/slick-carousel@1.6.0/slick/slick.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.1/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.1/slick-theme.css"/>
+<script src="https://unpkg.com/slick-carousel@1.8.1/slick/slick.js"></script>
 ```
 
 Once your library is imported, you can use its components, directives and pipes in your Angular application:
@@ -107,4 +107,4 @@ $ npm run lint
 
 ## License
 
-MIT © [Heo](mailto:heo@mapiacompany.com)
+MIT © [leo6104](mailto:heo@mapiacompany.com)
