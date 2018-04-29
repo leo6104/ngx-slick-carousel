@@ -133,6 +133,13 @@ To lint all `*.ts` files:
 $ npm run lint
 ```
 
+## Migration from `devmark/ngx-slick`
+1. npm uninstall ngx-slick --save
+1. npm install ngx-slick-carousel --save
+1. Rename `SlickModule` to `SlickCarouselModule`
+1. Rename `<ngx-slick>` tag name to `<ngx-slick-carousel>`
+1. Rename `#slickModal='slick-modal'` template reference to `#slickModal='slick-carousel'` (exportAs 'slick-carousel')
+
 ## License
 
 MIT © [leo6104](mailto:heo@mapiacompany.com)
