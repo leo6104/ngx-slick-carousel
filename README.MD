@@ -56,11 +56,11 @@ export class AppModule { }
 Once your library is imported, you can use its components, directives and pipes in your Angular application:
 ```html
   <!-- You can now use your library component in app.component.html -->
-    <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig" (afterChange)="afterChange($event)">
+    <ngx-slick-carousel class="carousel" #slickModal="slick-modal" [config]="slideConfig" (afterChange)="afterChange($event)">
         <div ngxSlickItem *ngFor="let slide of slides" class="slide">
               <img src="{{ slide.img }}" alt="" width="100%">
         </div>
-    </ngx-slick>
+    </ngx-slick-carousel>
     
     <button (click)="addSlide()">Add</button>
     <button (click)="removeSlide()">Remove</button>
