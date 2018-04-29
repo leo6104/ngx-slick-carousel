@@ -14,6 +14,7 @@ import {
   PLATFORM_ID
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {isPlatformBrowser} from '@angular/common';
 
 declare const jQuery: any;
 
@@ -47,8 +48,7 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
    * Constructor
    */
   constructor(private el: ElementRef,
-              private zone: NgZone,
-              @Inject(PLATFORM_ID) private platformId: string) {
+              private zone: NgZone) {
 
   }
 
@@ -78,7 +78,7 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
         });
       });
 
-      jQuery(this.el.nativeElement).slick(this.config);
+      this.$instance.slick(this.config);
 
       this.initialized = true;
 
@@ -170,14 +170,20 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
   selector: '[ngxSlickItem]',
 })
 export class SlickItemDirective implements AfterViewInit, OnDestroy {
-  constructor(public el: ElementRef, @Host() private carousel: SlickComponent) {
+  constructor(public el: ElementRef,
+              @Inject(PLATFORM_ID) private platformId: string,
+              @Host() private carousel: SlickComponent) {
   }
 
   ngAfterViewInit() {
-    this.carousel.addSlide(this);
+    if (isPlatformBrowser(this.platformId)) {
+      this.carousel.addSlide(this);
+    }
   }
 
   ngOnDestroy() {
-    this.carousel.removeSlide(this);
+    if (isPlatformBrowser(this.platformId)) {
+      this.carousel.removeSlide(this);
+    }
   }
 }

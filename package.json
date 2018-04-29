@@ -1,6 +1,6 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "scripts": {
     "build": "ng build --project ngx-slick-carousel",
     "docs": "npm run docs:build",

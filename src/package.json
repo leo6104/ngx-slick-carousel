@@ -1,6 +1,6 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/leo6104/ngx-slick-carousel"
@@ -20,6 +20,7 @@
   "typings": "ngx-slick.d.ts",
   "peerDependencies": {
     "@angular/core": "^6.0.0",
+    "@angular/common": "^6.0.0",
     "@angular/forms": "^6.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
