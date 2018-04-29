@@ -1,6 +1,6 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "prepublish": "cp -f README.MD ./dist/",
     "build": "ng build --project ngx-slick-carousel",
