@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
-declare const $: any;
+declare const jQuery: any;
 
 /**
  * Slick component
@@ -37,6 +37,7 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
   @Output() beforeChange: EventEmitter<any> = new EventEmitter();
   @Output() breakpoint: EventEmitter<any> = new EventEmitter();
   @Output() destroy: EventEmitter<any> = new EventEmitter();
+  @Output() init: EventEmitter<any> = new EventEmitter();
 
   public slides: any = [];
   public $instance: any;
@@ -69,7 +70,16 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
    */
   initSlick() {
     this.zone.runOutsideAngular(() => {
-      this.$instance = $(this.el.nativeElement).slick(this.config);
+      this.$instance = jQuery(this.el.nativeElement);
+
+      this.$instance.on('init', (event, slick) => {
+        this.zone.run(() => {
+          this.init.emit({event, slick});
+        });
+      });
+
+      jQuery(this.el.nativeElement).slick(this.config);
+
       this.initialized = true;
 
       this.$instance.on('afterChange', (event, slick, currentSlide) => {
