@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {NgModule, ModuleWithProviders} from '@angular/core';
-import {SlickComponent, SlickItemDirective} from './slick.component';
+import {SlickCarouselComponent, SlickItemDirective} from './slick.component';
 
 export * from './slick.component';
 
@@ -9,18 +9,18 @@ export * from './slick.component';
     CommonModule
   ],
   declarations: [
-    SlickComponent,
+    SlickCarouselComponent,
     SlickItemDirective,
   ],
   exports: [
-    SlickComponent,
+    SlickCarouselComponent,
     SlickItemDirective,
   ]
 })
-export class SlickModule {
+export class SlickCarouselModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SlickModule,
+      ngModule: SlickCarouselModule,
     };
   }
 }

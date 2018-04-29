@@ -31,7 +31,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your library
-import { SlickModule } from 'ngx-slick-carousel';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { SlickModule } from 'ngx-slick-carousel';
     BrowserModule,
 
     // Specify your library as an import
-    SlickModule.forRoot()
+    SlickCarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -61,7 +61,7 @@ Once your library is imported, you can use its components, directives and pipes 
 ```html
   <!-- You can now use your library component in app.component.html -->
     <ngx-slick-carousel class="carousel" 
-                        #slickModal="slick-modal" 
+                        #slickModal="slick-carousel" 
                         [config]="slideConfig" 
                         (init)="slickInit($event)"
                         (breakpoint)="breakpoint($event)"

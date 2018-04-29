@@ -23,15 +23,15 @@ declare const jQuery: any;
  */
 @Component({
   selector: 'ngx-slick-carousel',
-  exportAs: 'slick-modal',
+  exportAs: 'slick-carousel',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SlickComponent),
+    useExisting: forwardRef(() => SlickCarouselComponent),
     multi: true
   }],
   template: '<ng-content></ng-content>',
 })
-export class SlickComponent implements AfterViewInit, OnDestroy {
+export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
 
   @Input() config: any;
   @Output() afterChange: EventEmitter<any> = new EventEmitter();
@@ -172,7 +172,7 @@ export class SlickComponent implements AfterViewInit, OnDestroy {
 export class SlickItemDirective implements AfterViewInit, OnDestroy {
   constructor(public el: ElementRef,
               @Inject(PLATFORM_ID) private platformId: string,
-              @Host() private carousel: SlickComponent) {
+              @Host() private carousel: SlickCarouselComponent) {
   }
 
   ngAfterViewInit() {
