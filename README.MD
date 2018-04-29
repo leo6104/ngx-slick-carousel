@@ -1,5 +1,7 @@
 # ngx-slick-carousel
 
+[![npm version](https://badge.fury.io/js/ngx-slick-carousel.svg)](https://badge.fury.io/js/ngx-slick-carousel)
+
 [Example](https://embed.plnkr.co/fblxzfPneL66950A4VDM/)
 
 1. Support Angular 6+
