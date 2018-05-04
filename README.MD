@@ -1,6 +1,7 @@
 # ngx-slick-carousel
 
 [![npm version](https://badge.fury.io/js/ngx-slick-carousel.svg)](https://badge.fury.io/js/ngx-slick-carousel)
+[![Build Status](https://travis-ci.com/leo6104/ngx-slick-carousel.svg?branch=master)](https://travis-ci.com/leo6104/ngx-slick-carousel)
 
 [Example](https://embed.plnkr.co/fblxzfPneL66950A4VDM/)
 
