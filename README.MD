@@ -14,6 +14,8 @@
 To install this library, run:
 
 ```bash
+$ npm install jquery --save
+$ npm install slick-carousel --save
 $ npm install ngx-slick-carousel --save
 ```
 
@@ -22,7 +24,7 @@ $ npm install ngx-slick-carousel --save
 Once you have published your library to npm, you can import your library in any Angular application by running:
 
 ```bash
-$ npm install ngx-slick-carousel
+$ npm install ngx-slick-carousel --save
 ```
 
 and then from your Angular `AppModule`:
@@ -52,12 +54,24 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 export class AppModule { }
 ```
 
-- Include jquery and slick css/js in your application :
+- Include slick css in "styles" at your `angular.json` file  :
 ```
-<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.1/slick.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.8.1/slick-theme.css"/>
-<script src="https://unpkg.com/slick-carousel@1.8.1/slick/slick.js"></script>
+  "styles": [
+    ...
+    "node_modules/slick-carousel/slick/slick.scss",
+    "node_modules/slick-carousel/slick/slick-theme.scss",
+    ...
+  ]
+```
+
+- Include jquery and slick js in "scripts" at your `angular.json` file  :
+```
+  "scripts": [
+    ...
+    "node_modules/jquery/dist/jquery.min.js",
+    "node_modules/slick-carousel/slick/slick.min.js",
+    ...
+  ]
 ```
 
 Once your library is imported, you can use its components, directives and pipes in your Angular application:
