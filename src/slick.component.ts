@@ -40,6 +40,8 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
   @Output() destroy: EventEmitter<any> = new EventEmitter();
   @Output() init: EventEmitter<any> = new EventEmitter();
 
+  public currentIndex = 0;
+
   public slides: any = [];
   public $instance: any;
   private initialized: Boolean = false;
@@ -162,6 +164,13 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
       this.$instance.slick('unslick');
       this.initialized = false;
     });
+  }
+
+  public currentSlide() {
+    this.zone.run(() => {
+      this.currentIndex = this.$instance.slick('slickCurrentSlide');
+
+    })
   }
 
 }
