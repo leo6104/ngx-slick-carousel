@@ -44,6 +44,7 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
   public slides: any = [];
   public $instance: any;
   private initialized: Boolean = false;
+  public currentIndex: number;
 
   /**
    * Constructor
@@ -76,6 +77,7 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
       this.$instance.on('init', (event, slick) => {
         this.zone.run(() => {
           this.init.emit({event, slick});
+
         });
       });
 
@@ -83,9 +85,16 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
 
       this.initialized = true;
 
+      const slideIndex = this.$instance.slick('slickCurrentSlide');
+
+      this.zone.run(() => {
+        this.currentIndex = slideIndex;
+      });
+
       this.$instance.on('afterChange', (event, slick, currentSlide) => {
         this.zone.run(() => {
           this.afterChange.emit({event, slick, currentSlide});
+          this.currentIndex = currentSlide;
         });
       });
 
@@ -165,14 +174,7 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  public currentSlide() {
-    let current = 0 ;
-    this.zone.run(() => {
-      current =  this.$instance.slick('slickCurrentSlide');
 
-    });
-    return current;
-  }
 
 }
 
