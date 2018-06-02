@@ -75,21 +75,16 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
       this.$instance = jQuery(this.el.nativeElement);
 
       this.$instance.on('init', (event, slick) => {
+        const slideIndex = this.$instance.slick('slickCurrentSlide');
         this.zone.run(() => {
           this.init.emit({event, slick});
-
+          this.currentIndex = slideIndex;
         });
       });
 
       this.$instance.slick(this.config);
 
       this.initialized = true;
-
-      const slideIndex = this.$instance.slick('slickCurrentSlide');
-
-      this.zone.run(() => {
-        this.currentIndex = slideIndex;
-      });
 
       this.$instance.on('afterChange', (event, slick, currentSlide) => {
         this.zone.run(() => {
