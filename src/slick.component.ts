@@ -1,3 +1,4 @@
+import {isPlatformBrowser} from '@angular/common';
 import {
   Component,
   Input,
@@ -14,7 +15,6 @@ import {
   PLATFORM_ID
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-import {isPlatformBrowser} from '@angular/common';
 
 declare const jQuery: any;
 
@@ -43,8 +43,8 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
 
   public slides: any = [];
   public $instance: any;
-  private initialized: Boolean = false;
   public currentIndex: number;
+  private initialized: Boolean = false;
 
   /**
    * Constructor
@@ -119,60 +119,60 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
     if (!this.initialized) {
       this.initSlick();
     }
-
     this.slides.push(slickItem);
-    this.$instance.slick('slickAdd', slickItem.el.nativeElement);
+
+    this.zone.runOutsideAngular(() => {
+      this.$instance.slick('slickAdd', slickItem.el.nativeElement);
+    });
   }
 
   removeSlide(slickItem: SlickItemDirective) {
     const idx = this.slides.indexOf(slickItem);
-    this.$instance.slick('slickRemove', idx);
     this.slides = this.slides.filter(s => s !== slickItem);
+    this.zone.runOutsideAngular(() => {
+      this.$instance.slick('slickRemove', idx);
+    });
   }
 
   /**
    * Slick Method
    */
   public slickGoTo(index: number) {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickGoTo', index);
     });
   }
 
   public slickNext() {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickNext');
     });
   }
 
-
   public slickPrev() {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickPrev');
     });
   }
 
   public slickPause() {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickPause');
     });
   }
 
   public slickPlay() {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickPlay');
     });
   }
 
   public unslick() {
-    this.zone.run(() => {
+    this.zone.runOutsideAngular(() => {
       this.$instance.slick('unslick');
-      this.initialized = false;
     });
+    this.initialized = false;
   }
-
-
-
 }
 
 @Directive({
