@@ -1,18 +1,18 @@
 import {isPlatformBrowser} from '@angular/common';
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  NgZone,
-  forwardRef,
-  AfterViewInit,
-  OnDestroy,
-  Directive,
-  ElementRef,
-  Host,
-  Inject,
-  PLATFORM_ID
+    AfterViewInit,
+    Component,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Host,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    Output,
+    PLATFORM_ID
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -168,9 +168,11 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
   }
 
   public unslick() {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('unslick');
-    });
+    if (this.$instance) {
+      this.zone.runOutsideAngular(() => {
+        this.$instance.slick('unslick');
+      });
+    }
     this.initialized = false;
   }
 }
