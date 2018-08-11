@@ -65,6 +65,7 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
    * On component view init
    */
   ngAfterViewInit() {
+    this.initSlick();
   }
 
   /**
@@ -116,10 +117,11 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
   }
 
   addSlide(slickItem: SlickItemDirective) {
-    if (!this.initialized) {
-      this.initSlick();
-    }
     this.slides.push(slickItem);
+
+    if (!this.initialized) {
+      return;
+    }
 
     this.zone.runOutsideAngular(() => {
       this.$instance.slick('slickAdd', slickItem.el.nativeElement);
