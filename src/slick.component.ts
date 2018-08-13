@@ -34,6 +34,7 @@ declare const jQuery: any;
 export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
 
   @Input() config: any;
+  @Input() initSlidesLength: number;
   @Output() afterChange: EventEmitter<any> = new EventEmitter();
   @Output() beforeChange: EventEmitter<any> = new EventEmitter();
   @Output() breakpoint: EventEmitter<any> = new EventEmitter();
@@ -65,7 +66,6 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
    * On component view init
    */
   ngAfterViewInit() {
-    this.initSlick();
   }
 
   /**
@@ -120,6 +120,10 @@ export class SlickCarouselComponent implements AfterViewInit, OnDestroy {
     this.slides.push(slickItem);
 
     if (!this.initialized) {
+      // Wait for adding slides as much as initSlidesLength if it defined
+      if (!this.initSlidesLength || this.initSlidesLength === this.slides.length) {
+        this.initSlick();
+      }
       return;
     }
 

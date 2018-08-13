@@ -79,6 +79,7 @@ Once your library is imported, you can use its components, directives and pipes 
   <!-- You can now use your library component in app.component.html -->
     <ngx-slick-carousel class="carousel" 
                         #slickModal="slick-carousel" 
+                        [initSlidesLength]="slides.length"
                         [config]="slideConfig" 
                         (init)="slickInit($event)"
                         (breakpoint)="breakpoint($event)"
