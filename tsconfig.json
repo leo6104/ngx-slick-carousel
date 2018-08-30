@@ -10,6 +10,8 @@
     ],
     "skipLibCheck": true,
     "types": [
+      "jasmine",
+      "node",
       "./src/slick.d.ts"
     ]
   }

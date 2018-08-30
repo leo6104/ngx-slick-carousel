@@ -42,12 +42,12 @@ export class SlickCarouselComponent implements OnDestroy, AfterViewChecked {
     @Output() init: EventEmitter<any> = new EventEmitter();
 
 
-    public slides: any[] = [];
-    private _removedSlides: SlickItemDirective[] = [];
-    private _addedSlides: SlickItemDirective[] = [];
     public $instance: any;
     public currentIndex: number;
-    private initialized: Boolean = false;
+    public slides: any[] = [];
+    public initialized = false;
+    private _removedSlides: SlickItemDirective[] = [];
+    private _addedSlides: SlickItemDirective[] = [];
 
     /**
      * Constructor

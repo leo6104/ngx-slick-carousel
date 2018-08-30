@@ -3,11 +3,10 @@
 [![npm version](https://badge.fury.io/js/ngx-slick-carousel.svg)](https://badge.fury.io/js/ngx-slick-carousel)
 [![Build Status](https://travis-ci.com/leo6104/ngx-slick-carousel.svg?branch=master)](https://travis-ci.com/leo6104/ngx-slick-carousel)
 
-[Example](https://embed.plnkr.co/fblxzfPneL66950A4VDM/)
-
 1. Support Angular 6+
 2. Support Server side rendering
 3. Support Re-initialize case
+4. Fastest slick init/unslick implementation in Angular
 
 ## Installation
 
@@ -135,6 +134,7 @@ class ExampleComponent {
 }
 ```
 
+**(IMPORTANT)** If `slides` variable will be changed dynamically, use `trackBy` in `*ngFor` syntax. It will minimize `ngxSlickItem` directive recreation.
 
 ## Development
 
