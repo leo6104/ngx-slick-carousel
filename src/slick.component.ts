@@ -1,6 +1,7 @@
 import {isPlatformBrowser} from '@angular/common';
 import {
     AfterViewChecked,
+    AfterViewInit,
     Component,
     Directive,
     ElementRef,
@@ -32,7 +33,7 @@ declare const jQuery: any;
     }],
     template: '<ng-content></ng-content>',
 })
-export class SlickCarouselComponent implements OnDestroy, AfterViewChecked {
+export class SlickCarouselComponent implements OnDestroy, AfterViewInit, AfterViewChecked {
 
     @Input() config: any;
     @Output() afterChange: EventEmitter<any> = new EventEmitter();
@@ -62,6 +63,10 @@ export class SlickCarouselComponent implements OnDestroy, AfterViewChecked {
      */
     ngOnDestroy() {
         this.unslick();
+    }
+
+    ngAfterViewInit(): void {
+        this.ngAfterViewChecked();
     }
 
     /**
@@ -201,6 +206,7 @@ export class SlickCarouselComponent implements OnDestroy, AfterViewChecked {
         this._addedSlides = [];
         this._removedSlides = [];
     }
+
 }
 
 @Directive({
