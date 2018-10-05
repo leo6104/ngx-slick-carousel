@@ -11,10 +11,12 @@ import {
     Inject,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID
+    PLATFORM_ID,
+    SimpleChanges
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -33,7 +35,7 @@ declare const jQuery: any;
     }],
     template: '<ng-content></ng-content>',
 })
-export class SlickCarouselComponent implements OnDestroy, AfterViewInit, AfterViewChecked {
+export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
 
     @Input() config: any;
     @Output() afterChange: EventEmitter<any> = new EventEmitter();
@@ -41,7 +43,6 @@ export class SlickCarouselComponent implements OnDestroy, AfterViewInit, AfterVi
     @Output() breakpoint: EventEmitter<any> = new EventEmitter();
     @Output() destroy: EventEmitter<any> = new EventEmitter();
     @Output() init: EventEmitter<any> = new EventEmitter();
-
 
     public $instance: any;
     public currentIndex: number;
@@ -205,6 +206,18 @@ export class SlickCarouselComponent implements OnDestroy, AfterViewInit, AfterVi
         this.slides = [];
         this._addedSlides = [];
         this._removedSlides = [];
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['config'].previousValue !== changes['config'].currentValue && changes['config'].currentValue !== undefined) {
+            if (this.initialized) {
+                const refresh = changes['config'].currentValue['refresh'];
+                const newOptions = Object.assign({}, changes['config'].currentValue);
+                delete newOptions['refresh'];
+
+                this.$instance.slick('slickSetOption', newOptions, refresh);
+            }
+        }
     }
 
 }
