@@ -150,6 +150,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
             this.$instance.on('destroy', (event, slick) => {
                 this.zone.run(() => {
                     this.destroy.emit({event, slick});
+                    this.unslick(); // in case of user call element.slick('unslick') directly, we need to call `unslick()` in here
                 });
             });
         });
@@ -201,11 +202,9 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
             this.zone.runOutsideAngular(() => {
                 this.$instance.slick('unslick');
             });
+            this.$instance = undefined;
         }
         this.initialized = false;
-        this.slides = [];
-        this._addedSlides = [];
-        this._removedSlides = [];
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -215,7 +214,9 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
                 const newOptions = Object.assign({}, changes['config'].currentValue);
                 delete newOptions['refresh'];
 
-                this.$instance.slick('slickSetOption', newOptions, refresh);
+                this.zone.runOutsideAngular(() => {
+                    this.$instance.slick('slickSetOption', newOptions, refresh);
+                });
             }
         }
     }
