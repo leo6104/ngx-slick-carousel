@@ -150,7 +150,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
             this.$instance.on('destroy', (event, slick) => {
                 this.zone.run(() => {
                     this.destroy.emit({event, slick});
-                    this.unslick(); // in case of user call element.slick('unslick') directly, we need to call `unslick()` in here
+                    this.initialized = false;
                 });
             });
         });
