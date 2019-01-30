@@ -19,6 +19,7 @@ import {
     SimpleChanges
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import { slick } from 'slick-carousel';
 
 declare const jQuery: any;
 
