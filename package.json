@@ -1,6 +1,6 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "scripts": {
     "build": "ng build ngx-slick-carousel",
     "docs": "npm run docs:build",
@@ -59,7 +59,7 @@
     "zone.js": "^0.8.26"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=12.0.0"
   },
   "dependencies": {
     "@types/slick-carousel": "^1.6.32",
