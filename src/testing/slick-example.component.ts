@@ -24,7 +24,7 @@ import {SlickCarouselComponent} from '../slick.component';
     `
 })
 export class SlickExampleComponent {
-    @ViewChild('slickModal') slickModal: SlickCarouselComponent;
+    @ViewChild('slickModal', { static: true }) slickModal: SlickCarouselComponent;
 
     slides = [
         {img: 'http://placehold.it/350x150/000000'},
