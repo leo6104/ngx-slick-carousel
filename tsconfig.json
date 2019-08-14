@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "rootDir": "./src",
     "lib": [
@@ -9,6 +12,7 @@
       "dom"
     ],
     "skipLibCheck": true,
+    "target": "es2015",
     "types": [
       "jasmine",
       "node",

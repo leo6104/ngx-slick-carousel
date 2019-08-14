@@ -17,6 +17,8 @@ import {SlickCarouselComponent} from '../slick.component';
             </div>
         </ngx-slick-carousel>
 
+        Current Index: {{slickModal.currentIndex}} <BR />
+
         <button (click)="addSlide()">Add</button>
         <button (click)="removeSlide()">Remove</button>
         <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
