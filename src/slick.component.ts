@@ -1,4 +1,4 @@
-import {isPlatformBrowser} from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
     AfterViewChecked,
     AfterViewInit,
@@ -55,8 +55,8 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
      * Constructor
      */
     constructor(private el: ElementRef,
-                private zone: NgZone) {
-
+                private zone: NgZone,
+                @Inject(PLATFORM_ID) private platformId: string) {
     }
 
     /**
@@ -74,6 +74,9 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
      * On component view checked
      */
     ngAfterViewChecked() {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         if (this._addedSlides.length > 0 || this._removedSlides.length > 0) {
             const nextSlidesLength = this.slides.length - this._removedSlides.length + this._addedSlides.length;
             if (!this.initialized) {
