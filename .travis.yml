@@ -1,5 +1,8 @@
 language: node_js
 
+services:
+  - xvfb
+
 addons:
   chrome: stable
 
