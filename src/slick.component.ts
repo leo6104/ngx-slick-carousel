@@ -38,14 +38,17 @@ declare const jQuery: any;
 export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
 
   @Input() config: any;
-  @Output() afterChange: EventEmitter<any> = new EventEmitter();
-  @Output() beforeChange: EventEmitter<any> = new EventEmitter();
-  @Output() breakpoint: EventEmitter<any> = new EventEmitter();
-  @Output() destroy: EventEmitter<any> = new EventEmitter();
-  @Output() init: EventEmitter<any> = new EventEmitter();
+  @Output() afterChange: EventEmitter<{ event: any, slick: any, currentSlide: number }> = new EventEmitter();
+  @Output() beforeChange: EventEmitter<{ event: any, slick: any, currentSlide: number, nextSlide: number }> = new EventEmitter();
+  @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
+  @Output() destroy: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
+  @Output() init: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
 
   public $instance: any;
-  public currentIndex: number;
+
+  // access from parent component can be a problem with change detection timing. Please use afterChange output
+  private currentIndex = 0;
+
   public slides: any[] = [];
   public initialized = false;
   private _removedSlides: SlickItemDirective[] = [];
@@ -128,7 +131,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
       this.zone.run(() => {
         this.initialized = true;
 
-        this.currentIndex = (this.config && this.config.initialSlide) ? this.config.initialSlide : 0;
+        this.currentIndex = this.config?.initialSlide || 0;
       });
 
       this.$instance.on('afterChange', (event, slick, currentSlide) => {
