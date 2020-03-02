@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "module": "es2015",
-    "target": "es5",
+    "target": "es2015",
+    "module": "esnext",
     "baseUrl": ".",
     "stripInternal": true,
     "emitDecoratorMetadata": true,
@@ -18,6 +18,7 @@
     "types": []
   },
   "angularCompilerOptions": {
+    "enableIvy": false,
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,

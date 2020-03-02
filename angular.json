@@ -11,10 +11,13 @@
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "project": "src/ng-package.json",
-            "tsConfig": "src/tsconfig.es5.json"
+            "tsConfig": "src/tsconfig.json"
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
