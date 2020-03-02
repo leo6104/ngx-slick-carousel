@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/spec",
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "types": [
+      "jasmine",
+      "jquery",
+      "node"
+    ]
+  },
+  "files": [
+    "testing/test.ts",
+    "testing/polyfills-test.ts"
+  ],
+  "exclude": [],
+  "include": [
+    "**/*.ts",
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ]
+}

@@ -13,6 +13,19 @@
             "project": "src/ng-package.json",
             "tsConfig": "src/tsconfig.json"
           }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/testing/test.ts",
+            "polyfills": "src/testing/polyfills-test.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ]
+          }
         }
       }
     }

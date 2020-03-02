@@ -1,5 +1,6 @@
 language: node_js
 
+# https://benlimmer.com/2019/01/14/travis-ci-xvfb/
 services:
   - xvfb
 

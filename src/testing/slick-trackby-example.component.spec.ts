@@ -1,82 +1,75 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CommonModule} from '@angular/common';
-import {SlickCarouselComponent, SlickItemDirective} from '../slick.component';
-import {SlickTrackbyExampleComponent} from './slick-trackby-example.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { SlickCarouselComponent, SlickItemDirective } from '../slick.component';
+import { SlickTrackbyExampleComponent } from './slick-trackby-example.component';
 
 describe('SlickTrackbyExampleComponent', () => {
-    let fixture: ComponentFixture<SlickTrackbyExampleComponent>, component: SlickTrackbyExampleComponent;
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                CommonModule
-            ],
-            declarations: [
-                SlickCarouselComponent,
-                SlickItemDirective,
-                SlickTrackbyExampleComponent
-            ]
-        });
-        fixture = TestBed.createComponent(SlickTrackbyExampleComponent);
-        component = fixture.componentInstance;
-
-        global['jQuery'] = () => ({
-            slick: () => {
-            },
-            on: (event) => {
-            }
-        });
+  let fixture: ComponentFixture<SlickTrackbyExampleComponent>, component: SlickTrackbyExampleComponent;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule
+      ],
+      declarations: [
+        SlickCarouselComponent,
+        SlickItemDirective,
+        SlickTrackbyExampleComponent
+      ]
     });
+    fixture = TestBed.createComponent(SlickTrackbyExampleComponent);
+    component = fixture.componentInstance;
+  });
 
-    it('should be initialized', () => {
-        const slickInitSpy = spyOn(component.slickModal, 'initSlick').and.callThrough();
+  it('should be initialized', () => {
+    const slickInitSpy = spyOn(component.slickModal, 'initSlick').and.callThrough();
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(slickInitSpy.calls.count()).toBe(1);
-        expect(component.slickModal.initialized).toBeTruthy();
-    });
+    expect(slickInitSpy).toHaveBeenCalled();
+    expect(component.slickModal.initialized).toBeTruthy();
+  });
 
-    it('should call addSlide when add ngxSlickItem dynamically', () => {
-        fixture.detectChanges();
+  it('should call addSlide when add ngxSlickItem dynamically', () => {
+    fixture.detectChanges();
 
-        const slickAddSlideSpy = spyOn(component.slickModal, 'addSlide').and.callThrough();
-        component.addSlide();
+    const slickAddSlideSpy = spyOn(component.slickModal, 'addSlide').and.callThrough();
+    component.addSlide();
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(slickAddSlideSpy.calls.count()).toBe(1);
-    });
+    expect(slickAddSlideSpy.calls.count()).toBe(1);
+  });
 
-    it('should not call addSlide/removeSlide when trackBy function works', () => {
-        const tempSlide = {img: 'http://placehold.it/350x150/00000'};
-        component.slides.push(tempSlide);
+  it('should not call addSlide/removeSlide when trackBy function works', () => {
+    const tempSlide = { img: 'http://placehold.it/350x150/00000' };
+    component.slides.push(tempSlide);
 
-        const initSlideLength = component.slides.length;
+    const initSlideLength = component.slides.length;
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        const slickAddSlideSpy = spyOn(component.slickModal, 'addSlide').and.callThrough();
-        const slickRemoveSlideSpy = spyOn(component.slickModal, 'removeSlide').and.callThrough();
+    const slickAddSlideSpy = spyOn(component.slickModal, 'addSlide').and.callThrough();
+    const slickRemoveSlideSpy = spyOn(component.slickModal, 'removeSlide').and.callThrough();
 
-        component.slides = [tempSlide];
+    component.slides = [tempSlide];
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(slickAddSlideSpy.calls.count()).toBe(0);
-        expect(slickRemoveSlideSpy.calls.count()).toBeGreaterThanOrEqual(initSlideLength - 1);
+    expect(slickAddSlideSpy.calls.count()).toBe(0);
+    expect(slickRemoveSlideSpy.calls.count()).toBeGreaterThanOrEqual(initSlideLength - 1);
 
-        expect(component.slickModal.slides.length).toBe(1);
-    });
+    expect(component.slickModal.slides.length).toBe(1);
+  });
 
-    it('should be unslick status when slides is empty', () => {
-        fixture.detectChanges();
+  it('should be unslick status when slides is empty', () => {
+    fixture.detectChanges();
 
-        const unslickSpy = spyOn(component.slickModal, 'unslick').and.callThrough();
-        component.slides = [];
+    const unslickSpy = spyOn(component.slickModal, 'unslick').and.callThrough();
+    component.slides = [];
 
-        fixture.detectChanges();
+    fixture.detectChanges();
 
-        expect(unslickSpy.calls.count()).toBe(1);
-        expect(component.slickModal.initialized).toBeFalsy();
-    });
+    expect(unslickSpy.calls.count()).toBe(1);
+    expect(component.slickModal.initialized).toBeFalsy();
+  });
 });
