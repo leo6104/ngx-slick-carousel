@@ -37,12 +37,12 @@ declare const jQuery: any;
 })
 export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
 
-  @Input() config: any;
-  @Output() afterChange: EventEmitter<{ event: any, slick: any, currentSlide: number }> = new EventEmitter();
-  @Output() beforeChange: EventEmitter<{ event: any, slick: any, currentSlide: number, nextSlide: number }> = new EventEmitter();
-  @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
-  @Output() destroy: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
-  @Output() init: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
+    @Input() config: any;
+    @Output() afterChange: EventEmitter<{ event: any, slick: any, currentSlide: number, first: boolean, last: boolean }> = new EventEmitter();
+    @Output() beforeChange: EventEmitter<{ event: any, slick: any, currentSlide: number, nextSlide: number }> = new EventEmitter();
+    @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
+    @Output() destroy: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
+    @Output() init: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
 
   public $instance: any;
 
@@ -134,12 +134,18 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this.currentIndex = this.config?.initialSlide || 0;
       });
 
-      this.$instance.on('afterChange', (event, slick, currentSlide) => {
-        this.zone.run(() => {
-          this.afterChange.emit({ event, slick, currentSlide });
-          this.currentIndex = currentSlide;
-        });
-      });
+            this.$instance.on('afterChange', (event, slick, currentSlide) => {
+                this.zone.run(() => {
+                    this.afterChange.emit({
+                        event,
+                        slick,
+                        currentSlide,
+                        first: currentSlide === 0,
+                        last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
+                    });
+                    this.currentIndex = currentSlide;
+                });
+            });
 
       this.$instance.on('beforeChange', (event, slick, currentSlide, nextSlide) => {
         this.zone.run(() => {
