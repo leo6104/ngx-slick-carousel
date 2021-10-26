@@ -11,6 +11,9 @@
     "curly": true,
     "eofline": true,
     "forin": true,
+    "deprecation": {
+      "severity": "warning"
+    },
     "indent": [
       true,
       "spaces"
