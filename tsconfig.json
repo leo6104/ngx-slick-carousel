@@ -4,7 +4,7 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "rootDir": "./src",
     "lib": [

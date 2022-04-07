@@ -134,18 +134,18 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         this.currentIndex = this.config?.initialSlide || 0;
       });
 
-            this.$instance.on('afterChange', (event, slick, currentSlide) => {
-                this.zone.run(() => {
-                    this.afterChange.emit({
-                        event,
-                        slick,
-                        currentSlide,
-                        first: currentSlide === 0,
-                        last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
-                    });
-                    this.currentIndex = currentSlide;
-                });
+      this.$instance.on('afterChange', (event, slick, currentSlide) => {
+        this.zone.run(() => {
+            this.afterChange.emit({
+                event,
+                slick,
+                currentSlide,
+                first: currentSlide === 0,
+                last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
             });
+            this.currentIndex = currentSlide;
+        });
+      });
 
       this.$instance.on('beforeChange', (event, slick, currentSlide, nextSlide) => {
         this.zone.run(() => {

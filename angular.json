@@ -8,7 +8,7 @@
       "projectType": "library",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "project": "src/ng-package.json",
             "tsConfig": "src/tsconfig.json"

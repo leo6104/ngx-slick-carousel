@@ -2,10 +2,9 @@
   "compilerOptions": {
     "declaration": true,
     "target": "es2015",
-    "module": "esnext",
+    "module": "es2020",
     "baseUrl": ".",
     "stripInternal": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "outDir": "../build",
@@ -18,8 +17,8 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "enableIvy": false,
     "annotateForClosureCompiler": true,
+    "compilationMode": "partial",
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ngx-slick-carousel.js",
