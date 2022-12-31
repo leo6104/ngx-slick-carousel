@@ -51,7 +51,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-typescript": "^4.1.0",
-    "karma-typescript-es6-transform": "^4.1.0",
+    "karma-typescript-es6-transform": "^5.5.3",
     "ng-packagr": "^13.3.0",
     "protractor": "~7.0.0",
     "rxjs": "^6.5.4",
