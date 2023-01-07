@@ -1,4 +1,4 @@
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import {
   AfterViewChecked,
   AfterViewInit,
@@ -16,6 +16,7 @@ import {
   OnInit,
   Output,
   PLATFORM_ID,
+  Renderer2,
   SimpleChanges
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -241,20 +242,23 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
   selector: '[ngxSlickItem]',
 })
 export class SlickItemDirective implements OnInit, OnDestroy {
-  constructor(public el: ElementRef,
-              @Inject(PLATFORM_ID) private platformId: string,
-              @Host() private carousel: SlickCarouselComponent) {
+  constructor(
+    public el: ElementRef,
+    public renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: string,
+    @Host() private carousel: SlickCarouselComponent,
+  ) {
   }
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.carousel.addSlide(this);
+    this.carousel.addSlide(this);
+    if (isPlatformServer(this.platformId) && this.carousel.slides.length > 0) {
+      // Do not show other slides in server side rendering (broken ui can be affacted to Core Web Vitals)
+      this.renderer.setStyle(this.el, 'display', 'none');
     }
   }
 
   ngOnDestroy() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.carousel.removeSlide(this);
-    }
+    this.carousel.removeSlide(this);
   }
 }
