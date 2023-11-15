@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/ngx-slick-carousel.svg)](https://badge.fury.io/js/ngx-slick-carousel)
 [![Build Status](https://travis-ci.com/leo6104/ngx-slick-carousel.svg?branch=master)](https://travis-ci.com/leo6104/ngx-slick-carousel)
 
-1. Support Angular 13+
+1. Support Angular 17 (not compatible with <= 16, if you want, use 15.0.0 release)
 2. Support Server side rendering
 3. Support Re-initialize case
 4. Fastest slick init/unslick implementation in Angular
@@ -26,31 +26,24 @@ Once you have published your library to npm, you can import your library in any 
 $ npm install ngx-slick-carousel --save
 ```
 
-and then from your Angular `AppModule`:
+and then from your Angular standalone component:
 
 ```typescript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { Component } from '@angular/core';
 
 // Import your library
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
+@Component({
+  ...,
+  standalone: true,
   imports: [
-    BrowserModule,
-
-    // Specify your library as an import
-    SlickCarouselModule
+    SlickCarouselModule, // Put in here
   ],
-  providers: [],
-  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class ExampleComponent {
+  ...
+}
 ```
 
 - Include slick css in "styles" at your `angular.json` file  :
@@ -83,9 +76,11 @@ Once your library is imported, you can use its components, directives and pipes 
                         (breakpoint)="breakpoint($event)"
                         (afterChange)="afterChange($event)"
                         (beforeChange)="beforeChange($event)">
-        <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-              <img src="{{ slide.img }}" alt="" width="100%">
-        </div>
+        @for (slide of slides; track slide.img) {
+            <div ngxSlickItem class="slide">
+                  <img src="{{ slide.img }}" alt="" width="100%">
+            </div>
+        }
     </ngx-slick-carousel>
     
     <button (click)="addSlide()">Add</button>
@@ -96,10 +91,13 @@ Once your library is imported, you can use its components, directives and pipes 
 
 ```typescript
 @Component({
-  ...
+  ...,
+  standalone: true,
+  imports: [
+    SlickCarouselModule, 
+  ],
 })
 class ExampleComponent {
-
   slides = [
     {img: "http://placehold.it/350x150/000000"},
     {img: "http://placehold.it/350x150/111111"},
@@ -149,13 +147,6 @@ To lint all `*.ts` files:
 ```bash
 $ npm run lint
 ```
-
-## Migration from `devmark/ngx-slick`
-1. npm uninstall ngx-slick --save
-1. npm install ngx-slick-carousel --save
-1. Rename `SlickModule.forRoot()` to `SlickCarouselModule`
-1. Rename `<ngx-slick>` tag name to `<ngx-slick-carousel>`
-1. Rename `#slickModal='slick-modal'` template reference to `#slickModal='slick-carousel'` (exportAs 'slick-carousel')
 
 ## License
 

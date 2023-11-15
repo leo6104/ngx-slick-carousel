@@ -10,7 +10,7 @@ addons:
 sudo: required
 
 node_js:
-  - '18'
+  - '20'
 
 before_script:
   - npm install

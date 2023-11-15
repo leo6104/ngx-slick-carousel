@@ -7,7 +7,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  Host,
+  inject,
   Inject,
   Input,
   NgZone,
@@ -55,13 +55,9 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
   private _removedSlides: SlickItemDirective[] = [];
   private _addedSlides: SlickItemDirective[] = [];
 
-  /**
-   * Constructor
-   */
-  constructor(private el: ElementRef,
-              private zone: NgZone,
-              @Inject(PLATFORM_ID) private platformId: string) {
-  }
+  private el = inject(ElementRef);
+  private zone = inject(NgZone);
+  private isServer = isPlatformServer(inject(PLATFORM_ID));
 
   /**
    * On component destroy
@@ -78,7 +74,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
    * On component view checked
    */
   ngAfterViewChecked() {
-    if (isPlatformServer(this.platformId)) {
+    if (this.isServer) {
       return;
     }
     if (this._addedSlides.length > 0 || this._removedSlides.length > 0) {
@@ -242,17 +238,15 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
   selector: '[ngxSlickItem]',
 })
 export class SlickItemDirective implements OnInit, OnDestroy {
-  constructor(
-    public el: ElementRef,
-    public renderer: Renderer2,
-    @Inject(PLATFORM_ID) private platformId: string,
-    @Host() private carousel: SlickCarouselComponent,
-  ) {
-  }
+  private carousel = inject(SlickCarouselComponent, { host: true });
+
+  renderer = inject(Renderer2);
+  el = inject(ElementRef);
+  isServer = isPlatformServer(inject(PLATFORM_ID));
 
   ngOnInit() {
     this.carousel.addSlide(this);
-    if (isPlatformServer(this.platformId) && this.carousel.slides.length > 0) {
+    if (this.isServer && this.carousel.slides.length > 0) {
       // Do not show other slides in server side rendering (broken ui can be affacted to Core Web Vitals)
       this.renderer.setStyle(this.el, 'display', 'none');
     }
