@@ -19,9 +19,9 @@
   "module": "ngx-slick.js",
   "typings": "ngx-slick.d.ts",
   "peerDependencies": {
-    "@angular/core": "^17.0.0",
-    "@angular/common": "^17.0.0",
-    "@angular/forms": "^17.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/forms": "^18.0.0",
     "rxjs": "^7.0.0",
     "zone.js": ">=0.10.2"
   }
