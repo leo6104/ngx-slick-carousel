@@ -22,7 +22,8 @@ import { SlickCarouselComponent } from '../slick.component';
           <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
           <button (click)="slickModal.unslick()">unslick</button>
       </ng-container>
-  `
+  `,
+  standalone: false,
 })
 export class SlickExampleComponent {
   @ViewChild('slickModal', { static: true }) slickModal: SlickCarouselComponent;

@@ -5,23 +5,21 @@ import {
   Component,
   Directive,
   ElementRef,
-  EventEmitter,
   forwardRef,
   inject,
-  Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  output,
   PLATFORM_ID,
   Renderer2,
   SimpleChanges
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-declare const jQuery: any;
+declare const jQuery: JQueryStatic;
 
 /**
  * Slick component
@@ -35,17 +33,18 @@ declare const jQuery: any;
     multi: true
   }],
   template: '<ng-content></ng-content>',
+  standalone: false,
 })
 export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
 
-    @Input() config: any;
-    @Output() afterChange: EventEmitter<{ event: any, slick: any, currentSlide: number, first: boolean, last: boolean }> = new EventEmitter();
-    @Output() beforeChange: EventEmitter<{ event: any, slick: any, currentSlide: number, nextSlide: number }> = new EventEmitter();
-    @Output() breakpoint: EventEmitter<{ event: any, slick: any, breakpoint: any }> = new EventEmitter();
-    @Output() destroy: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
-    @Output() init: EventEmitter<{ event: any, slick: any }> = new EventEmitter();
+  @Input() config: JQuerySlickOptions;
+  afterChange = output<{ event: JQuery.TriggeredEvent<HTMLElement>, slick: JQuerySlick, currentSlide: number, first: boolean, last: boolean }>();
+  beforeChange = output<{ event: JQuery.TriggeredEvent<HTMLElement>, slick: JQuerySlick, currentSlide: number, nextSlide: number }>();
+  breakpoint = output<{ event: JQuery.TriggeredEvent<HTMLElement>, slick: JQuerySlick, breakpoint: any }>();
+  destroy = output<{ event: JQuery.TriggeredEvent<HTMLElement>, slick: JQuerySlick }>();
+  init = output<{ event: JQuery.TriggeredEvent<HTMLElement>, slick: JQuerySlick }>();
 
-  public $instance: any;
+  public $instance: JQuery;
 
   // access from parent component can be a problem with change detection timing. Please use afterChange output
   private currentIndex = 0;
@@ -89,18 +88,14 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
       } else {
         this._addedSlides.forEach(slickItem => {
           this.slides.push(slickItem);
-          this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickAdd', slickItem.el.nativeElement);
-          });
+          this.$instance.slick('slickAdd', slickItem.el.nativeElement);
         });
         this._addedSlides = [];
 
         this._removedSlides.forEach(slickItem => {
           const idx = this.slides.indexOf(slickItem);
           this.slides = this.slides.filter(s => s !== slickItem);
-          this.zone.runOutsideAngular(() => {
-            this.$instance.slick('slickRemove', idx);
-          });
+          this.$instance.slick('slickRemove', idx);
         });
         this._removedSlides = [];
       }
@@ -114,54 +109,53 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
     this.slides = this._addedSlides;
     this._addedSlides = [];
     this._removedSlides = [];
-    this.zone.runOutsideAngular(() => {
-      this.$instance = jQuery(this.el.nativeElement);
 
-      this.$instance.on('init', (event, slick) => {
-        this.zone.run(() => {
-          this.init.emit({ event, slick });
-        });
-      });
+    this.$instance = jQuery(this.el.nativeElement);
 
-      this.$instance.slick(this.config);
-
+    this.$instance.on('init', (event, slick: JQuerySlick) => {
       this.zone.run(() => {
-        this.initialized = true;
-
-        this.currentIndex = this.config?.initialSlide || 0;
+        this.init.emit({ event, slick });
       });
+    });
 
-      this.$instance.on('afterChange', (event, slick, currentSlide) => {
-        this.zone.run(() => {
-            this.afterChange.emit({
-                event,
-                slick,
-                currentSlide,
-                first: currentSlide === 0,
-                last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
-            });
-            this.currentIndex = currentSlide;
-        });
+    this.$instance.slick(this.config);
+
+    this.zone.run(() => {
+      this.initialized = true;
+
+      this.currentIndex = this.config?.initialSlide || 0;
+    });
+
+    this.$instance.on('afterChange', (event, slick: JQuerySlick, currentSlide: number) => {
+      this.zone.run(() => {
+          this.afterChange.emit({
+              event,
+              slick,
+              currentSlide,
+              first: currentSlide === 0,
+              last: slick.$slides.length === currentSlide + slick.options.slidesToScroll
+          });
+          this.currentIndex = currentSlide;
       });
+    });
 
-      this.$instance.on('beforeChange', (event, slick, currentSlide, nextSlide) => {
-        this.zone.run(() => {
-          this.beforeChange.emit({ event, slick, currentSlide, nextSlide });
-          this.currentIndex = nextSlide;
-        });
+    this.$instance.on('beforeChange', (event, slick: JQuerySlick, currentSlide: number, nextSlide: number) => {
+      this.zone.run(() => {
+        this.beforeChange.emit({ event, slick, currentSlide, nextSlide });
+        this.currentIndex = nextSlide;
       });
+    });
 
-      this.$instance.on('breakpoint', (event, slick, breakpoint) => {
-        this.zone.run(() => {
-          this.breakpoint.emit({ event, slick, breakpoint });
-        });
+    this.$instance.on('breakpoint', (event, slick: JQuerySlick, breakpoint) => {
+      this.zone.run(() => {
+        this.breakpoint.emit({ event, slick, breakpoint });
       });
+    });
 
-      this.$instance.on('destroy', (event, slick) => {
-        this.zone.run(() => {
-          this.destroy.emit({ event, slick });
-          this.initialized = false;
-        });
+    this.$instance.on('destroy', (event, slick: JQuerySlick) => {
+      this.zone.run(() => {
+        this.destroy.emit({ event, slick });
+        this.initialized = false;
       });
     });
   }
@@ -178,40 +172,28 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
    * Slick Method
    */
   public slickGoTo(index: number) {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('slickGoTo', index);
-    });
+    this.$instance.slick('slickGoTo', index);
   }
 
   public slickNext() {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('slickNext');
-    });
+    this.$instance.slick('slickNext');
   }
 
   public slickPrev() {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('slickPrev');
-    });
+    this.$instance.slick('slickPrev');
   }
 
   public slickPause() {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('slickPause');
-    });
+    this.$instance.slick('slickPause');
   }
 
   public slickPlay() {
-    this.zone.runOutsideAngular(() => {
-      this.$instance.slick('slickPlay');
-    });
+    this.$instance.slick('slickPlay');
   }
 
   public unslick() {
     if (this.$instance) {
-      this.zone.runOutsideAngular(() => {
-        this.$instance.slick('unslick');
-      });
+      this.$instance.slick('unslick');
       this.$instance = undefined;
     }
     this.initialized = false;
@@ -225,9 +207,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
         const newOptions = Object.assign({}, config.currentValue);
         delete newOptions['refresh'];
 
-        this.zone.runOutsideAngular(() => {
-          this.$instance.slick('slickSetOption', newOptions, refresh);
-        });
+        this.$instance.slick('slickSetOption', newOptions, refresh);
       }
     }
   }
@@ -236,6 +216,7 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
 
 @Directive({
   selector: '[ngxSlickItem]',
+  standalone: false
 })
 export class SlickItemDirective implements OnInit, OnDestroy {
   private carousel = inject(SlickCarouselComponent, { host: true });

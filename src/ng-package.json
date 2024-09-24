@@ -4,5 +4,9 @@
   "deleteDestPath": true,
   "lib": {
     "entryFile": "index.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@types/jquery",
+    "@types/slick-carousel"
+  ]
 }

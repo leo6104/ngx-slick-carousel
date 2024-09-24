@@ -13,8 +13,8 @@
 To install this library, run:
 
 ```bash
-$ npm install jquery --save
-$ npm install slick-carousel --save
+$ npm install jquery @types/jquery --save
+$ npm install slick-carousel @types/slick-carousel --save
 $ npm install ngx-slick-carousel --save
 ```
 
@@ -150,4 +150,4 @@ $ npm run lint
 
 ## License
 
-MIT © [leo6104](mailto:heo@mapiacompany.com)
+MIT © [leo6104](mailto:heo@mpaghq.com)

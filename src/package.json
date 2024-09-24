@@ -1,13 +1,13 @@
 {
   "name": "ngx-slick-carousel",
-  "version": "17.0.0",
+  "version": "18.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/leo6104/ngx-slick-carousel"
   },
   "author": {
     "name": "leo6104",
-    "email": "heo@mapiacompany.com"
+    "email": "heo@mpaghq.com"
   },
   "keywords": [
     "angular"
@@ -18,11 +18,15 @@
   },
   "module": "ngx-slick.js",
   "typings": "ngx-slick.d.ts",
+  "dependencies": {
+    "@types/slick-carousel": "^1.6.0",
+    "@types/jquery": ">=2.0.0"
+  },
   "peerDependencies": {
-    "@angular/core": "^18.0.0",
-    "@angular/common": "^18.0.0",
-    "@angular/forms": "^18.0.0",
+    "@angular/core": "^17.0.0 || ^18.0.0",
+    "@angular/common": "^17.0.0 || ^18.0.0",
+    "@angular/forms": "^17.0.0 || ^18.0.0",
     "rxjs": "^7.0.0",
-    "zone.js": ">=0.10.2"
+    "zone.js": "^0.14.0 || ^0.15.0"
   }
 }

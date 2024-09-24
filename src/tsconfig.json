@@ -10,11 +10,18 @@
     "outDir": "../build",
     "rootDir": ".",
     "lib": [
-      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2019",
+      "es2020",
       "dom"
     ],
     "skipLibCheck": true,
-    "types": []
+    "types": [
+      "slick-carousel",
+      "jquery"
+    ]
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

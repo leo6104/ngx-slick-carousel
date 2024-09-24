@@ -20,7 +20,8 @@ import { SlickCarouselComponent } from '../slick.component';
       <button (click)="removeSlide()">Remove</button>
       <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
       <button (click)="slickModal.unslick()">unslick</button>
-  `
+  `,
+  standalone: false
 })
 export class SlickTrackbyExampleComponent {
   @ViewChild('slickModal', { static: true }) slickModal: SlickCarouselComponent;
