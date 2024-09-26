@@ -199,8 +199,10 @@ export class SlickCarouselComponent implements OnDestroy, OnChanges, AfterViewIn
     this.initialized = false;
   }
 
+// Added a check to ensure that this.$instance is defined before accessing it to prevent TypeError: Cannot read properties of undefined (reading 'slick')
+// This helps prevent errors when ngOnChanges() is called and ensures that the Slick Carousel component is properly initialized before accessing its properties.
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.initialized) {
+    if (this.initialized && this.$instance) {
       const config = changes['config'];
       if (config.previousValue !== config.currentValue && config.currentValue !== undefined) {
         const refresh = config.currentValue['refresh'];
