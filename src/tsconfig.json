@@ -6,7 +6,7 @@
     "baseUrl": ".",
     "stripInternal": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "../build",
     "rootDir": ".",
     "lib": [

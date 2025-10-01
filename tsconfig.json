@@ -5,7 +5,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "es2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "rootDir": "./src",
     "lib": [
       "es2015",
