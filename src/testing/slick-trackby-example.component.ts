@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from '../slick.component';
 
 
@@ -21,6 +21,7 @@ import { SlickCarouselComponent } from '../slick.component';
       <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
       <button (click)="slickModal.unslick()">unslick</button>
   `,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: false
 })
 export class SlickTrackbyExampleComponent {

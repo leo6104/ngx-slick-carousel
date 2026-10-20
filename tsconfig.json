@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "strict": false,
     "importHelpers": true,
     "module": "es2022",
     "moduleResolution": "bundler",

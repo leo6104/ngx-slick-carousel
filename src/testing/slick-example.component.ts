@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from '../slick.component';
 
 
@@ -23,6 +23,7 @@ import { SlickCarouselComponent } from '../slick.component';
           <button (click)="slickModal.unslick()">unslick</button>
       </ng-container>
   `,
+  changeDetection: ChangeDetectionStrategy.Default,
   standalone: false,
 })
 export class SlickExampleComponent {
