@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { SlickCarouselComponent, SlickItemDirective } from '../slick.component';
@@ -14,6 +15,9 @@ describe('SlickTrackbyExampleComponent', () => {
         SlickCarouselComponent,
         SlickItemDirective,
         SlickTrackbyExampleComponent
+      ],
+      providers: [
+        provideZoneChangeDetection()
       ]
     });
     fixture = TestBed.createComponent(SlickTrackbyExampleComponent);
